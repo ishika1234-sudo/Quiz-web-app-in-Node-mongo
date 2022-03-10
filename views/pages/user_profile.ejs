@@ -1,18 +1,284 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Required meta tags -->
+<meta charset="utf-8">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  </head>
 
-  <header>
-    <%- include('../partials/user_header'); %>
-  </header>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<style>
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #e6e6e6;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color:  #404040;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #7678ec;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color:#3366cc;
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px ;
+  height: 1000px;
+  color: #000;
+}
+
+.div1{
+  margin-top: 3%;
+  width: 100%;
+  text-align: center;
+  height: auto;
+
+}
+
+.div2{
+  margin-top: 3%;
+  width: 100%;
+  text-align: center;
+  
+
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+.active {
+  background-color: green !important;
+}
+
+
+</style>
+</head>
 <body>
-  WELCOME 
+
+<div class="sidebar">
+  <h5 style="text-align: center;margin-top: 7%;">Hi, <%- user %></h5>
+  <!-- <h5 style="text-align: center;margin-top: 7%;display: none;">Hi, <%- user_unique_id %></h5> -->
+  <a style="text-align: center;" href="#about">About</a>
+  <a style="text-align: center;" href="#contact">Contact</a>
+  <a style="text-align: center;" href="/api/logout">Logout</a>
+
+  
+</div>
+
+
+
+<div class="content">
+  <div class="div1">
+    <h3>Welcome to the quiz application</h3>
+    <p>Play, score and check your performance on leader board</p>
+    <button type="button" class="btn btn-primary" id="b1">Play quiz</button><br><br>
+    choose a quiz category, your questions will be based on the genre you choose.<br><br>
+    <a href="/newquiz?category=Mythology&user=<%- user_unique_id %>"><button type="button" id="mythology" class="btn btn-primary btn-sm">Mythology</button></a>
+    <a href="/quiz/current affairs"><button type="button" id="current affairs" class="btn btn-secondary btn-sm">current affairs</button></a>
+    <a href="/quiz/entertainment"><button type="button" id="entertainment" class="btn btn-success btn-sm">entertainment</button></a>
+    <a href="/quiz/science"><button type="button" id="science" class="btn btn-danger btn-sm">science</button></a>
+    <a href="/quiz/health"><button type="button" id="Health" class="btn btn-info btn-sm">Health</button></a>
+  </div><br><br>
+  <hr>
+  <h5 style="text-align: center">Check your performance here</h5>
+
+  <div class="div2">
+    <a href="#Score">
+      <button type="button" onclick="Score()" id="btn1" class="btn btn-primary">Score</button></a>
+    <a href="#Category_wise_score">
+      <button type="button" onclick="Category_wise_score()" id="btn2" class="btn btn-primary">Category wise score</button></a>
+    <a href="#Quiz_wise_performance_graph">
+      <button type="button" onclick="Quiz_wise_performance_graph()" id="btn3" class="btn btn-primary">Quiz wise performance graph</button></a>
+    <a href="#Category_wise_performance_graph">
+      <button type="button" onclick="Category_wise_performance_graph()" id="btn4" class="btn btn-primary">Category wise performance graph</button></a>
+  </div>
+
+  <br><br>
+
+
+<div id="Score" class="container" style="margin-left: 1%">
+  <h6 style="text-align:center;">Check your score</h6><br>
+  <table class="table table-striped table-primary">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div id="Category_wise_score" class="container" style="margin-left: 1%;display: none;">
+  <h6 style="text-align:center;">Check you Category wise score</h6><br>
+  <table class="table table-striped table-primary">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div id="Quiz_wise_performance_graph" class="container" style="margin-left: 1%;display: none;">
+  <h6 style="text-align:center;">Check your Quiz wise performance graph</h6><br>
+  <table class="table table-striped table-primary">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div id="Category_wise_performance_graph" class="container" style="margin-left: 1%;display: none;">
+  <h6 style="text-align:center;">Check your Category wise performance graph</h6><br>
+  <table class="table table-striped table-primary">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<script type="text/javascript" src="../../public/scripts/user_profile.js"></script>
+  
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>
